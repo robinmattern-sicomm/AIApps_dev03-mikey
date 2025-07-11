@@ -1,4 +1,11 @@
-*_v[0-9]*
-node_modules
-package-lock.json
+
 .env
+_env
+node_modules
+.DS_Store
+yarn.lock
+package-lock.json
+*.bak
+*_v[0-9]*
+*_t[0-9]*
+
