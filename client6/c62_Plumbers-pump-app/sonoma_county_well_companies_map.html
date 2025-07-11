@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonoma County Well Companies Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .company-list {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .company-list h2 {
+            color: #2c5aa0;
+            margin-top: 0;
+        }
+        .company-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .company-list li {
+            padding: 0;
+            border-bottom: none;
+        }
+        .company-list li a {
+            color: #2c5aa0;
+            text-decoration: none;
+            display: block;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            transition: color 0.3s ease;
+        }
+        .company-list li a:hover {
+            color: #1a4480;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .company-list li:last-child a {
+            border-bottom: none;
+        }
+        .company-number {
+            display: inline-block;
+            background-color: #2c5aa0;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            line-height: 24px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .home-icon {
+            display: inline-block;
+            font-size: 20px;
+            margin-right: 10px;
+            vertical-align: middle;
+            width: 23px;               
+        }
+        .map-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        #map {
+            width: 100%;
+            height: 600px;
+        }
+        .info-window {
+            max-width: 300px;
+            font-family: Arial, sans-serif;
+        }
+        .info-window h3 {
+            margin: 0 0 10px 0;
+            color: #2c5aa0;
+            font-size: 16px;
+        }
+        .info-window p {
+            margin: 5px 0;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .info-window a {
+            color: #2c5aa0;
+            text-decoration: none;
+        }
+        .info-window a:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sonoma County Well Companies</h1>
+        
+        <div class="company-list">
+            <h2>Companies Listed:</h2>
+            <ul>
+                <li><a href="#" onclick="openCompanyPopup(0); return false;"><span class="home-icon">🏠</span> Mattern Vista</a></li>
+                <li><a href="#" onclick="openCompanyPopup(1); return false;"><span class="company-number">1</span> Ray's Well Testing Service</a></li>
+                <li><a href="#" onclick="openCompanyPopup(2); return false;"><span class="company-number">2</span> WEEKS DRILLING & PUMP</a></li>
+                <li><a href="#" onclick="openCompanyPopup(3); return false;"><span class="company-number">3</span> Sonoma County Pump And Well</a></li>
+                <li><a href="#" onclick="openCompanyPopup(4); return false;"><span class="company-number">4</span> Northcoast Waterworks</a></li>
+                <li><a href="#" onclick="openCompanyPopup(5); return false;"><span class="company-number">5</span> Luciani Pump</a></li>
+                <li><a href="#" onclick="openCompanyPopup(6); return false;"><span class="company-number">6</span> Jerry & Don's Yager Pump & Well</a></li>
+            </ul>
+        </div>
+
+        <div class="map-container">
+            <div id="map">
+                <div class="loading">Loading Google Maps...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let map;
+        let geocoder;
+        let infoWindow;
+        let markers = []; // Store markers so we can trigger them from the list
+
+        // Company data with actual addresses and contact information
+        const companies = [
+            {
+                name: "Mattern Vista",
+                address: "7117 Stoetz Lane, Sebastopol, CA 95472",
+                phone: "(703) 655-3213",
+                type: "Residence",
+                website: "N/A",
+                description: "Your home location for reference when contacting well service companies."
+            },
+            {
+                name: "Ray's Well Testing Service",
+                address: "4853 Vine Hill Rd, Sebastopol, CA 95472",
+                phone: "(707) 823-3191",
+                type: "Well Testing Service",
+                website: "rayswelltesting.com",
+                description: "Water Well Production Testing, Contaminant Testing, Inspections, Well pump installation and repair, Well Certifications, Well Chlorination, and Service."
+            },
+            {
+                name: "WEEKS DRILLING & PUMP",
+                address: "6100 Highway 12, Sebastopol, CA 95472", 
+                phone: "(707) 823-3184",
+                type: "Drilling & Pump Service",
+                website: "weeksdrilling.com",
+                description: "Serving Northern California since 1906. Complete range of water supply solutions including drilling, pump systems, and water treatment."
+            },
+            {
+                name: "Sonoma County Pump And Well",
+                address: "8352 Blackney Rd, Sebastopol, CA 95472",
+                phone: "Contact for phone number",
+                type: "Pump & Well Service",
+                website: "N/A",
+                description: "Family-run business operating in Sonoma County for over 30 years. Started by Fritz Lowe in 1980."
+            },
+            {
+                name: "Northcoast Waterworks",
+                address: "953 Piner Pl, Santa Rosa, CA 95403",
+                phone: "(707) 578-3411",
+                type: "Water Treatment Systems",
+                website: "northcoastwaterworks.com",
+                description: "Locally owned water treatment specialists. Authorized dealer for Kinetico and Atlantic Ultraviolet products."
+            },
+            {
+                name: "Luciani Pump",
+                address: "30 Mill St, Healdsburg, CA 95448",
+                phone: "Contact for phone number",
+                type: "Pump Service",
+                website: "N/A",
+                description: "Established in 1946. Specializes in irrigation and domestic water systems, design and maintenance."
+            },
+            {
+                name: "Jerry & Don's Yager Pump & Well",
+                address: "1290 Bodega Avenue, Petaluma, CA 94952",
+                phone: "(707) 762-1473",
+                type: "Pump & Well Service",
+                website: "jerryanddonsyager.com",
+                description: "Providing quality water systems for over 50 years. Licensed C36 Plumbing contractor and C57 Drilling Contractor. 24-hour emergency service, 7 days a week."
+            }
+        ];
+
+        // Function to open popup from company list
+        function openCompanyPopup(index) {
+            if (markers[index]) {
+                // Trigger the click event on the corresponding marker
+                google.maps.event.trigger(markers[index], 'click');
+                
+                // Center the map on the marker
+                map.setCenter(markers[index].getPosition());
+                map.setZoom(15);
+            }
+        }
+
+        // Initialize Google Maps
+        function initMap() {
+            // Center on Sonoma County
+//          const sonomaCounty = { lat: 38.5816, lng: -122.8047 };
+            const sonomaCounty = { lat: 38.3650, lng: -122.8047 }; // Lower number = moved south
+            
+            map = new google.maps.Map(document.getElementById('map'), {
+//              zoom: 10,
+                zoom: 11,  // Higher number = more zoomed in                
+                center: sonomaCounty,
+                mapTypeId: 'roadmap'
+            });
+
+            geocoder = new google.maps.Geocoder();
+            infoWindow = new google.maps.InfoWindow();
+
+            // Add markers for each company
+            companies.forEach((company, index) => {
+                addCompanyMarker(company, index);
+            });
+        }
+
+        function addCompanyMarker(company, index) {
+            // Use geocoding to get exact coordinates from real addresses
+            geocoder.geocode({ address: company.address }, (results, status) => {
+                if (status === 'OK') {
+                    const position = results[0].geometry.location;
+                    
+                    // Different marker for home vs companies
+                    let markerIcon;
+                    if (index === 0) {
+                        // Home marker with house icon
+                        markerIcon = {
+                            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                                <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="16" cy="16" r="14" fill="#ff6b6b" stroke="white" stroke-width="2"/>
+                                    <text x="16" y="20" text-anchor="middle" fill="white" font-size="16">🏠</text>
+                                </svg>
+                            `),
+                            scaledSize: new google.maps.Size(32, 32)
+                        };
+                    } else {
+                        // Company marker with number
+                        markerIcon = {
+                            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                                <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="16" cy="16" r="14" fill="#2c5aa0" stroke="white" stroke-width="2"/>
+                                    <text x="16" y="20" text-anchor="middle" fill="white" font-size="12" font-weight="bold">${index}</text>
+                                </svg>
+                            `),
+                            scaledSize: new google.maps.Size(32, 32)
+                        };
+                    }
+                    
+                    const marker = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        title: company.name,
+                        icon: markerIcon
+                    });
+
+                    marker.addListener('click', () => {
+                        const content = `
+                            <div class="info-window">
+                                <h3>${company.name}</h3>
+                                <p><strong>Address:</strong><br>${company.address}</p>
+                                <p><strong>Phone:</strong> ${company.phone}</p>
+                                <p><strong>Type:</strong> ${company.type}</p>
+                                ${company.website !== 'N/A' ? `<p><strong>Website:</strong> <a href="http://${company.website}" target="_blank">${company.website}</a></p>` : ''}
+                                <p><strong>About:</strong><br><em>${company.description}</em></p>
+                            </div>
+                        `;
+                        infoWindow.setContent(content);
+                        infoWindow.open(map, marker);
+                    });
+
+                    // Store marker for later reference
+                    markers[index] = marker;
+                } else {
+                    console.log('Geocoding failed for ' + company.name + ': ' + status);
+                    // Fallback to approximate locations if geocoding fails
+                    const fallbackLocations = [
+                        { lat: 38.4304, lng: -122.8344 }, // Sebastopol area (home)
+                        { lat: 38.4404, lng: -122.8244 }, // Sebastopol area
+                        { lat: 38.4404, lng: -122.8044 }, // Sebastopol area
+                        { lat: 38.4504, lng: -122.8144 }, // Sebastopol area
+                        { lat: 38.4404, lng: -122.7144 }, // Santa Rosa area
+                        { lat: 38.6102, lng: -122.8695 }, // Healdsburg area
+                        { lat: 38.2904, lng: -122.4580 }  // Petaluma area
+                    ];
+                    
+                    const position = fallbackLocations[index] || fallbackLocations[0];
+                    
+                    // Different marker for home vs companies
+                    let markerIcon;
+                    if (index === 0) {
+                        // Home marker with house icon
+                        markerIcon = {
+                            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                                <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="16" cy="16" r="14" fill="#ff6b6b" stroke="white" stroke-width="2"/>
+                                    <text x="16" y="20" text-anchor="middle" fill="white" font-size="16">🏠</text>
+                                </svg>
+                            `),
+                            scaledSize: new google.maps.Size(32, 32)
+                        };
+                    } else {
+                        // Company marker with number
+                        markerIcon = {
+                            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                                <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="16" cy="16" r="14" fill="#2c5aa0" stroke="white" stroke-width="2"/>
+                                    <text x="16" y="20" text-anchor="middle" fill="white" font-size="12" font-weight="bold">${index}</text>
+                                </svg>
+                            `),
+                            scaledSize: new google.maps.Size(32, 32)
+                        };
+                    }
+                    
+                    const marker = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        title: company.name,
+                        icon: markerIcon
+                    });
+
+                    marker.addListener('click', () => {
+                        const content = `
+                            <div class="info-window">
+                                <h3>${company.name}</h3>
+                                <p><strong>Address:</strong><br>${company.address}</p>
+                                <p><strong>Phone:</strong> ${company.phone}</p>
+                                <p><strong>Type:</strong> ${company.type}</p>
+                                ${company.website !== 'N/A' ? `<p><strong>Website:</strong> <a href="http://${company.website}" target="_blank">${company.website}</a></p>` : ''}
+                                <p><strong>About:</strong><br><em>${company.description}</em></p>
+                            </div>
+                        `;
+                        infoWindow.setContent(content);
+                        infoWindow.open(map, marker);
+                    });
+
+                    // Store marker for later reference
+                    markers[index] = marker;
+                }
+            });
+        }
+
+        // Fallback if Google Maps doesn't load
+        setTimeout(() => {
+            if (!window.google) {
+                document.getElementById('map').innerHTML = `
+                    <div class="loading">
+                        <p>Google Maps API not loaded. Please check your API key.</p>
+                        <p>Make sure you have:</p>
+                        <ul style="text-align: left; max-width: 400px; margin: 0 auto;">
+                            <li>Replaced PASTE_YOUR_API_KEY_HERE with your actual API key</li>
+                            <li>Enabled the Maps JavaScript API in Google Cloud Console</li>
+                            <li>Set up billing for your project</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }, 3000);
+    </script>
+
+    <!-- Google Maps API -->
+    <script async defer 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT4v6jNvBq0xOZQxhj52qhaUPxBXXSUkQ&callback=initMap">
+    </script>
+</body>
+</html>
