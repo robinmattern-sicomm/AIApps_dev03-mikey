@@ -8,8 +8,8 @@ The applications in this repository are:
    - [c01_first-app](../client/c01_first-app/)   
    - [c01_first-app/index.html](../client/c01_first-app/index.html)   
  - A simple app created by Amazon Q
-   - [c62_Plumbers-pump-app](../client6/c62_Plumbers-amp-app/) 
-   - [c62_Plumbers-pump-app/index.html](../client6/c62_Plumbers-amp-app/sonoma_county_well_companies_map.html) 
+   - [c62_plumbers-pump-app](../client6/c62_plumbers-amp-app/) 
+   - [c62_plumbers-pump-app/index.html](../client6/c62_plumbers-amp-app/sonoma_county_well_companies_map.html) 
  - A number of starter apps
    - c11_first-app
    - c12_second-app
