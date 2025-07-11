@@ -43,7 +43,7 @@ The first topic is to setup your workstation. 8020Data has documented the proces
  9. Markdown Preview Test               [1.1.9.](https://8020data.github.io/FRDocs_prod-master/#/Setup/fr0101_Setup-Developer-Workstation?id=_9-markdown-preview-test-005)
 10. Install Chrome extensions           [1.1.4.](https://8020data.github.io/FRDocs_prod-master/#/Setup/fr0101_Setup-Developer-Workstation?id=_4-install-or-open-chrome-browser-010)
 
-11. Install MySql                       [1.1.12.](https://8020data.github.io/FRDocs_prod-master/#/Setup/fr0101_Setup-Developer-Workstation?id=_12-install-mysql-for-windows-045)
+11. Install MySQL                       [1.1.12.](https://8020data.github.io/FRDocs_prod-master/#/Setup/fr0101_Setup-Developer-Workstation?id=_12-install-mysql-for-windows-045)
     Install DBeaver 
     Install Ollama
     Buy and Install Snagit 
