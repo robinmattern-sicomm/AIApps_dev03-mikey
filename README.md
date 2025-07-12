@@ -14,23 +14,16 @@ Instructions for setting up a production server in the cloud are located here:
    - [a00_setup-server.md](https://8020data.github.io/FRDocs_prod-master/#/Setup/fr0301_Setup-Vultr-Ubuntu)
 
 
-## AIApps Repository Apps   
+## AIApps_dev03-mikey Repository Apps   
 
-The applications in this repository are: 
+Samples of the applications in this repository can be seen in the GitHub Pages
+for this repository here: [robinmattern-sicomm.github.io/AIApps_dev03-mikey](https://robinmattern-sicomm.github.io/AIApps_dev03-mikey/#) 
 
  - Mike's first app   
    - [c01_first-app](../client/c01_first-app/)   
-   - ./docs/a01_first-app/index.html
-     <div style="max-width: 415px; overflow-x: auto;">
-       <iframe src="a01_first-app/index.html" height="675" frameborder="1"></iframe>
-     </div>
 
  - A simple app created by Amazon Q    
-   - [c62_plumbers-pump-app](../client6/c62_plumbers-pump-app/)   
-   - ./docs/a62_Plumbers-pump-app/index.html
-     <div style="max-width: 650px; overflow-x: auto;">
-       <iframe src="a62_plumbers-pump-app/index.html" height="1150" frameborder="1"></iframe>
-     </div>  
+   - [c62_plumbers-pump-app](../client6/c62_Plumbers-pump-app/)   
  
  - A number of starter apps
    - c11_first-app
