@@ -3,11 +3,9 @@
 These notes provide a brief outline of the topics and steps to follow to develop web applications. 
 
 ## 1. Workstation setup
-The first topic is to setup your workstation. 8020Data has documented the process as well as setting up your application server in the cloud. 
-  - [820Data FormR Documentation](https://8020data.github.io/FRDocs_prod-master/#/)
+The first topic is to setup your workstation. 
 
-### [1.1. Build-Workstation]([https://8020data.github.io/FRDocs_prod-master/#/Setup/)
-
+### [1.1. Build-Workstation](https://8020data.github.io/FRDocs_prod-master/#/Setup/fr0101_Setup-Developer-Workstation)
 
  1. Create Repos/Project_/Stage folders [1.1.3.](https://8020data.github.io/FRDocs_prod-master/#/Setup/fr0101_Setup-Developer-Workstation?id=_3-create-new-folders-change-view-options-setup-ssh-and-create-keys-015)
  2. Install Git and Git Bash            [1.1.6.](https://8020data.github.io/FRDocs_prod-master/#/Setup/fr0101_Setup-Developer-Workstation?id=_6-download-git-if-not-already-installed-010)

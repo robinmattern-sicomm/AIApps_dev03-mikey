@@ -8,7 +8,7 @@
 8. Clone myProject 0:05
 9. Markdown Preview Test 0:05
 10. From VSCode push and pull with GitHub 0:10
-— Fix needed show picture of push / pull alert see Snagit
+ï¿½ Fix needed show picture of push / pull alert see Snagit
 11. Install Node Version Selector for Windows 0:05
 12. Install MySql for Windows 0:45
 13. Install Bitvise ssh client 0:05
@@ -62,5 +62,19 @@
 13. Install Bitvise SSH client          [1.1.13.](https://8020data.github.io/FRDocs_prod-master/#/Setup/fr0101_Setup-Developer-Workstation?id=_13-install-bitvise-ssh-client-005)
 
  8. Clone FormR Starter Repo            [1.1.8.](https://8020data.github.io/FRDocs_prod-master/#/Setup/fr0101_Setup-Developer-Workstation?id=_8-clone-myproject-005)
+
+----------------------------------------------------------------------------------------------
+
+https://robinmattern-sicomm.github.io/AIApps_dev03-mikey/client/c01_first-app/index.html
+https://robinmattern-sicomm.github.io/AIApps_dev03-mikey/client6/c62_plumbers-pump-app/index.html
+                                                         client6/c62_plumbers-pump-app/index.html
+
+Your site is live at https://robinmattern-sicomm.github.io/AIApps_dev03-mikey/
+https://robinmattern-sicomm.github.io/AIApps_dev03-mikey/a01_first-app/index.html
+https://robinmattern-sicomm.github.io/AIApps_dev03-mikey/a62_plumbers-pump-app/index.html
+
+https://robinmattern-sicomm.github.io/AIApps_dev03-mikey
+
+       <iframe src="a62_plumbers-pump-app/index.html" frameborder="1" style="max-width:650px !important; width:650px !important; height:1150px;"></iframe>
 
 
