@@ -1,6 +1,5 @@
 # AIApps
 
-
 ## formR Setup   
 
 8020Data has documented the process of building web applications using the simplest 
@@ -19,14 +18,14 @@ Instructions for setting up a production server in the cloud are located here:
 The applications in this repository are: 
 
  - Mike's first app   
-   - [c01_first-app](../client/c01_first-app/)   
+   - [c01_first-app](https://github.com/robinmattern-sicomm/AIApps_dev03-mikey/tree/master/client/c01_first-app/)   
    - ./docs/a01_first-app/index.html
      <div style="max-width: 415px; overflow-x: auto;">
        <iframe src="a01_first-app/index.html" height="675" frameborder="1"></iframe>
      </div>
 
  - A simple app created by Amazon Q    
-   - [c62_plumbers-pump-app](../client6/c62_plumbers-pump-app/)   
+   - [c62_plumbers-pump-app](https://github.com/robinmattern-sicomm/AIApps_dev03-mikey/tree/master/client6/c62_Plumbers-pump-app/)  
    - ./docs/a62_Plumbers-pump-app/index.html
      <div style="max-width: 650px; overflow-x: auto;">
        <iframe src="a62_plumbers-pump-app/index.html" height="1150" frameborder="1"></iframe>

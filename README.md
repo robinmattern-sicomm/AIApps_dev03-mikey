@@ -1,6 +1,5 @@
 # AIApps
 
-
 ## formR Setup   
 
 8020Data has documented the process of building web applications using the simplest 
@@ -20,10 +19,10 @@ Samples of the applications in this repository can be seen in the GitHub Pages
 for this repository here: [robinmattern-sicomm.github.io/AIApps_dev03-mikey](https://robinmattern-sicomm.github.io/AIApps_dev03-mikey/#) 
 
  - Mike's first app   
-   - [c01_first-app](../client/c01_first-app/)   
+   - [c01_first-app](./client/c01_first-app/)   
 
  - A simple app created by Amazon Q    
-   - [c62_plumbers-pump-app](../client6/c62_Plumbers-pump-app/)   
+   - [c62_plumbers-pump-app](./client6/c62_Plumbers-pump-app/)   
  
  - A number of starter apps
    - c11_first-app
